@@ -1,11 +1,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "<TON_API_KEY>",
-    authDomain: "<TON_PROJECT>.firebaseapp.com",
-    projectId: "<TON_PROJECT>",
-    storageBucket: "<TON_PROJECT>.appspot.com",
-    messagingSenderId: "<TON_SENDER_ID>",
-    appId: "<TON_APP_ID>"
+    apiKey: "AIzaSyA1_a38VDmAKP8l3PkgutNLkDHSa7SzRFI",
+    authDomain: "ionic-booking-33b47.firebaseapp.com",
+    projectId: "ionic-booking-33b47",
+    storageBucket: "ionic-booking-33b47.appspot.com",
+    messagingSenderId: "508434584131",
+    appId: "1:508434584131:web:d4a3d38db3c62c5852faf6",
+    measurementId: "G-N84BQ2XBLE"
   }
 };

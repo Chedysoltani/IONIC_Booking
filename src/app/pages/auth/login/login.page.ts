@@ -31,7 +31,7 @@ export class LoginPage {
     try {
       await this.authService.login(this.email, this.password);
       // Rediriger vers la page d'accueil ou le tableau de bord
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/landing-page');
     } catch (err: any) {
       if (err.code === 'auth/user-not-found') {
         this.errorMessage = 'Aucun compte trouvé avec cet email';

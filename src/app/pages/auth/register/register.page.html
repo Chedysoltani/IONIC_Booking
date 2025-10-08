@@ -14,7 +14,7 @@
 
     <ion-card class="register-card">
       <ion-card-content>
-        <form class="register-form">
+        <form class="register-form" (ngSubmit)="register()">
           <div class="form-group">
             <div class="input-wrapper">
               <ion-icon name="person-outline" class="input-icon"></ion-icon>
@@ -65,7 +65,7 @@
 
           <ion-button 
             expand="block" 
-            (click)="register()" 
+            type="submit"
             class="register-button"
             shape="round">
             <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
@@ -73,7 +73,6 @@
           </ion-button>
 
           <div class="divider">
-            <span>ou</span>
           </div>
 
           <div class="login-link">
