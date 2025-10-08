@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Inscription</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="register-content">
+  <div class="register-container">
+    <div class="welcome-section">
+      <ion-icon name="people-circle-outline" class="welcome-icon"></ion-icon>
+      <h1>Rejoignez-nous</h1>
+      <p>Créez votre compte expert et commencez à proposer vos consultations</p>
+    </div>
+
+    <ion-card class="register-card">
+      <ion-card-content>
+        <form class="register-form">
+          <div class="form-group">
+            <div class="input-wrapper">
+              <ion-icon name="person-outline" class="input-icon"></ion-icon>
+              <ion-input 
+                [(ngModel)]="displayName" 
+                name="displayName"
+                placeholder="Nom complet"
+                class="custom-input">
+              </ion-input>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-wrapper">
+              <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+              <ion-input 
+                type="email" 
+                [(ngModel)]="email" 
+                name="email"
+                placeholder="Adresse email"
+                class="custom-input">
+              </ion-input>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-wrapper">
+              <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+              <ion-input 
+                type="password" 
+                [(ngModel)]="password" 
+                name="password"
+                placeholder="Mot de passe"
+                class="custom-input">
+              </ion-input>
+            </div>
+            <ion-text class="password-hint">
+              <small>Minimum 6 caractères</small>
+            </ion-text>
+          </div>
+
+          <ion-text color="danger" *ngIf="errorMessage" class="error-message">
+            <div class="error-box">
+              <ion-icon name="alert-circle-outline"></ion-icon>
+              <span>{{ errorMessage }}</span>
+            </div>
+          </ion-text>
+
+          <ion-button 
+            expand="block" 
+            (click)="register()" 
+            class="register-button"
+            shape="round">
+            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+            S'inscrire
+          </ion-button>
+
+          <div class="divider">
+            <span>ou</span>
+          </div>
+
+          <div class="login-link">
+            <ion-text color="medium">
+              Vous avez déjà un compte ?
+            </ion-text>
+            <a routerLink="/login" class="link-button">Se connecter</a>
+          </div>
+        </form>
+      </ion-card-content>
+    </ion-card>
+
+    <div class="footer-info">
+      <ion-text color="medium">
+        <small>En vous inscrivant, vous acceptez nos conditions d'utilisation</small>
+      </ion-text>
+    </div>
+  </div>
+</ion-content>

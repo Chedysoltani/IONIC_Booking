@@ -1,0 +1,283 @@
+<ion-header>
+  <ion-toolbar color="primary" class="landing-toolbar">
+    <ion-title>ExpertConnect</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/login" fill="clear">
+        <ion-icon slot="start" name="log-in-outline"></ion-icon>
+        Connexion
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="landing-content">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge animate-fade-in">
+          <ion-icon name="star"></ion-icon>
+          <span>Plateforme de confiance</span>
+        </div>
+        <h1 class="hero-title animate-slide-up">Réservez une consultation avec un expert</h1>
+        <p class="hero-description animate-slide-up delay-1">
+          Connectez-vous avec des coaches, avocats, consultants et experts certifiés. 
+          Réservez votre consultation en quelques clics.
+        </p>
+        <div class="hero-buttons animate-slide-up delay-2">
+          <ion-button routerLink="/register" size="large" class="cta-button pulse-animation" shape="round">
+            <ion-icon slot="start" name="person-add-outline"></ion-icon>
+            Commencer maintenant
+          </ion-button>
+          <ion-button routerLink="/experts" size="large" fill="outline" class="secondary-button" shape="round">
+            <ion-icon slot="start" name="search-outline"></ion-icon>
+            Parcourir les experts
+          </ion-button>
+        </div>
+        <div class="hero-stats animate-fade-in delay-3">
+          <div class="stat-item">
+            <ion-icon name="people-outline"></ion-icon>
+            <div>
+              <strong>500+</strong>
+              <span>Experts vérifiés</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <ion-icon name="star-outline"></ion-icon>
+            <div>
+              <strong>4.9/5</strong>
+              <span>Note moyenne</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <ion-icon name="checkmark-done-outline"></ion-icon>
+            <div>
+              <strong>10k+</strong>
+              <span>Consultations réussies</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories-section">
+    <div class="section-container">
+      <div class="section-header">
+        <h2>Trouvez l'expert qu'il vous faut</h2>
+        <p>Des professionnels qualifiés dans tous les domaines</p>
+      </div>
+      <div class="categories-grid">
+        <ion-card class="category-card">
+          <div class="category-icon coaching">
+            <ion-icon name="fitness-outline"></ion-icon>
+          </div>
+          <ion-card-header>
+            <ion-card-title>Coaching</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Développement personnel, coaching de vie, carrière professionnelle
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="category-card">
+          <div class="category-icon legal">
+            <ion-icon name="document-text-outline"></ion-icon>
+          </div>
+          <ion-card-header>
+            <ion-card-title>Juridique</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Avocats, conseils juridiques, droit des affaires et du travail
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="category-card">
+          <div class="category-icon business">
+            <ion-icon name="briefcase-outline"></ion-icon>
+          </div>
+          <ion-card-header>
+            <ion-card-title>Business</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Consultants, stratégie d'entreprise, marketing et finance
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="category-card">
+          <div class="category-icon health">
+            <ion-icon name="medkit-outline"></ion-icon>
+          </div>
+          <ion-card-header>
+            <ion-card-title>Santé & Bien-être</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Nutritionnistes, psychologues, thérapeutes certifiés
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="category-card">
+          <div class="category-icon tech">
+            <ion-icon name="code-slash-outline"></ion-icon>
+          </div>
+          <ion-card-header>
+            <ion-card-title>Tech & IT</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Développeurs, experts cybersécurité, consultants cloud
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="category-card">
+          <div class="category-icon finance">
+            <ion-icon name="cash-outline"></ion-icon>
+          </div>
+          <ion-card-header>
+            <ion-card-title>Finance</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Conseillers financiers, experts-comptables, fiscalistes
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works Section -->
+  <section class="how-it-works-section">
+    <div class="section-container">
+      <div class="section-header">
+        <h2>Comment ça marche ?</h2>
+        <p>Réservez une consultation en 3 étapes simples</p>
+      </div>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-icon">
+            <ion-icon name="search-circle-outline"></ion-icon>
+          </div>
+          <h3>Trouvez votre expert</h3>
+          <p>Parcourez les profils et choisissez l'expert qui correspond à vos besoins</p>
+        </div>
+
+        <div class="step-arrow">
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-icon">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </div>
+          <h3>Réservez un créneau</h3>
+          <p>Choisissez la date et l'heure qui vous conviennent le mieux</p>
+        </div>
+
+        <div class="step-arrow">
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-icon">
+            <ion-icon name="videocam-outline"></ion-icon>
+          </div>
+          <h3>Consultez en ligne</h3>
+          <p>Rencontrez votre expert en visioconférence ou en personne</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="section-container">
+      <div class="section-header">
+        <h2>Pourquoi nous choisir ?</h2>
+        <p>Une plateforme conçue pour votre réussite</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <ion-icon name="shield-checkmark-outline"></ion-icon>
+          </div>
+          <h3>Experts vérifiés</h3>
+          <p>Tous nos experts sont certifiés et vérifiés pour garantir la qualité</p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">
+            <ion-icon name="time-outline"></ion-icon>
+          </div>
+          <h3>Réservation flexible</h3>
+          <p>Choisissez le créneau qui vous convient, annulation facile</p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+          </div>
+          <h3>Paiement sécurisé</h3>
+          <p>Transactions cryptées et protection de vos données personnelles</p>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-icon">
+            <ion-icon name="chatbubbles-outline"></ion-icon>
+          </div>
+          <h3>Support 24/7</h3>
+          <p>Une équipe disponible pour vous accompagner à tout moment</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-container">
+      <div class="cta-content">
+        <h2>Prêt à commencer ?</h2>
+        <p>Rejoignez des milliers d'utilisateurs satisfaits et trouvez l'expert qu'il vous faut</p>
+        <ion-button routerLink="/register" size="large" class="cta-button-white" shape="round">
+          <ion-icon slot="start" name="rocket-outline"></ion-icon>
+          Créer mon compte gratuitement
+        </ion-button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>ExpertConnect</h4>
+          <p>La plateforme de référence pour réserver vos consultations avec des experts certifiés.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Liens rapides</h4>
+          <a routerLink="/about">À propos</a>
+          <a routerLink="/experts">Nos experts</a>
+          <a routerLink="/pricing">Tarifs</a>
+          <a routerLink="/contact">Contact</a>
+        </div>
+        <div class="footer-section">
+          <h4>Support</h4>
+          <a routerLink="/faq">FAQ</a>
+          <a routerLink="/help">Centre d'aide</a>
+          <a routerLink="/privacy">Confidentialité</a>
+          <a routerLink="/terms">Conditions</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 ExpertConnect. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+</ion-content>
