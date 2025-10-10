@@ -1,13 +1,449 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>admin-dashboard</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Tableau de bord Admin</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <!-- Tabs Navigation -->
+  <ion-toolbar class="tabs-toolbar">
+    <ion-segment [(ngModel)]="activeTab" (ionChange)="onTabChange()">
+      <ion-segment-button value="stats">
+        <ion-icon name="analytics-outline"></ion-icon>
+        <ion-label>Statistiques</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="categories">
+        <ion-icon name="grid-outline"></ion-icon>
+        <ion-label>Catégories</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="experts">
+        <ion-icon name="people-outline"></ion-icon>
+        <ion-label>Experts</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="users">
+        <ion-icon name="person-outline"></ion-icon>
+        <ion-label>Utilisateurs</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">admin-dashboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="admin-content">
+  <!-- Statistics Section -->
+  <div *ngIf="activeTab === 'stats'" class="section-container animate-fade-in">
+    <div class="stats-grid">
+      <ion-card class="stat-card stat-card-1">
+        <ion-card-content>
+          <div class="stat-icon">
+            <ion-icon name="grid-outline"></ion-icon>
+          </div>
+          <div class="stat-info">
+            <h3>{{ categoriesCount }}</h3>
+            <p>Catégories</p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="stat-card stat-card-2">
+        <ion-card-content>
+          <div class="stat-icon">
+            <ion-icon name="people-outline"></ion-icon>
+          </div>
+          <div class="stat-info">
+            <h3>{{ expertsCount }}</h3>
+            <p>Experts</p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="stat-card stat-card-3">
+        <ion-card-content>
+          <div class="stat-icon">
+            <ion-icon name="person-outline"></ion-icon>
+          </div>
+          <div class="stat-info">
+            <h3>{{ usersCount }}</h3>
+            <p>Utilisateurs</p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="stat-card stat-card-4">
+        <ion-card-content>
+          <div class="stat-icon">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </div>
+          <div class="stat-info">
+            <h3>{{ bookingsCount }}</h3>
+            <p>Réservations</p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <ion-card class="welcome-card">
+      <ion-card-header>
+        <ion-card-title>Bienvenue dans l'administration</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Gérez vos catégories, experts et utilisateurs depuis ce tableau de bord.</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Categories Section -->
+  <div *ngIf="activeTab === 'categories'" class="section-container animate-fade-in">
+    <div class="section-header">
+      <h2>Gestion des Catégories</h2>
+      <ion-button (click)="openCategoryModal()" class="add-button" shape="round">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Ajouter une catégorie
+      </ion-button>
+    </div>
+
+    <div class="table-card">
+      <ion-card>
+        <ion-card-content class="table-content">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th class="actions-column">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let category of categories" class="table-row">
+                <td class="name-column">
+                  <div class="category-badge">{{ category.name }}</div>
+                </td>
+                <td>{{ category.description }}</td>
+                <td class="actions-column">
+                  <ion-button fill="clear" size="small" (click)="editCategory(category)">
+                    <ion-icon slot="icon-only" name="create-outline" color="primary"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" size="small" (click)="deleteCategory(category.id)">
+                    <ion-icon slot="icon-only" name="trash-outline" color="danger"></ion-icon>
+                  </ion-button>
+                </td>
+              </tr>
+              <tr *ngIf="categories.length === 0">
+                <td colspan="3" class="empty-state">
+                  <ion-icon name="folder-open-outline"></ion-icon>
+                  <p>Aucune catégorie pour le moment</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <!-- Experts Section -->
+  <div *ngIf="activeTab === 'experts'" class="section-container animate-fade-in">
+    <div class="section-header">
+      <h2>Gestion des Experts</h2>
+      <ion-button (click)="openExpertModal()" class="add-button" shape="round">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Ajouter un expert
+      </ion-button>
+    </div>
+
+    <div class="table-card">
+      <ion-card>
+        <ion-card-content class="table-content">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Catégorie</th>
+                <th>Bio</th>
+                <th class="actions-column">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let expert of experts" class="table-row">
+                <td class="name-column">
+                  <div class="expert-info">
+                    <div class="expert-avatar">{{ expert.name.charAt(0) }}</div>
+                    <span>{{ expert.name }}</span>
+                  </div>
+                </td>
+                <td>{{ expert.email }}</td>
+                <td>
+                  <span class="category-tag">{{ getCategoryName(expert.categoryId) }}</span>
+                </td>
+                <td class="bio-column">{{ expert.bio }}</td>
+                <td class="actions-column">
+                  <ion-button fill="clear" size="small" (click)="editExpert(expert)">
+                    <ion-icon slot="icon-only" name="create-outline" color="primary"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" size="small" (click)="deleteExpert(expert.id)">
+                    <ion-icon slot="icon-only" name="trash-outline" color="danger"></ion-icon>
+                  </ion-button>
+                </td>
+              </tr>
+              <tr *ngIf="experts.length === 0">
+                <td colspan="5" class="empty-state">
+                  <ion-icon name="person-outline"></ion-icon>
+                  <p>Aucun expert pour le moment</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <!-- Users Section -->
+  <div *ngIf="activeTab === 'users'" class="section-container animate-fade-in">
+    <div class="section-header">
+      <h2>Gestion des Utilisateurs</h2>
+      <ion-button (click)="openUserModal()" class="add-button" shape="round">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Ajouter un utilisateur
+      </ion-button>
+    </div>
+
+    <div class="table-card">
+      <ion-card>
+        <ion-card-content class="table-content">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Date d'inscription</th>
+                <th>Rôle</th>
+                <th class="actions-column">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users" class="table-row">
+                <td class="name-column">
+                  <div class="expert-info">
+                    <div class="expert-avatar user-avatar">{{ user.displayName?.charAt(0) || 'U' }}</div>
+                    <span>{{ user.displayName || 'Sans nom' }}</span>
+                  </div>
+                </td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.createdAt | date:'short' }}</td>
+                <td>
+                  <span class="role-tag" [class.admin-role]="user.role === 'admin'">
+                    {{ user.role || 'user' }}
+                  </span>
+                </td>
+                <td class="actions-column">
+                  <ion-button fill="clear" size="small" (click)="editUser(user)">
+                    <ion-icon slot="icon-only" name="create-outline" color="primary"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" size="small" (click)="toggleUserRole(user)">
+                    <ion-icon slot="icon-only" name="shield-outline" color="warning"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" size="small" (click)="deleteUser(user.id)">
+                    <ion-icon slot="icon-only" name="trash-outline" color="danger"></ion-icon>
+                  </ion-button>
+                </td>
+              </tr>
+              <tr *ngIf="users.length === 0">
+                <td colspan="5" class="empty-state">
+                  <ion-icon name="people-outline"></ion-icon>
+                  <p>Aucun utilisateur pour le moment</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
 </ion-content>
+
+<!-- Category Modal -->
+<ion-modal [isOpen]="isCategoryModalOpen" (didDismiss)="closeCategoryModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>{{ editingCategory ? 'Modifier' : 'Ajouter' }} une catégorie</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeCategoryModal()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="modal-content">
+      <div class="modal-form">
+        <div class="form-group">
+          <div class="input-wrapper">
+            <ion-icon name="pricetag-outline" class="input-icon"></ion-icon>
+            <ion-input
+              [(ngModel)]="categoryForm.name"
+              placeholder="Nom de la catégorie"
+              class="custom-input">
+            </ion-input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="textarea-wrapper">
+            <ion-icon name="document-text-outline" class="input-icon"></ion-icon>
+            <ion-textarea
+              [(ngModel)]="categoryForm.description"
+              placeholder="Description"
+              rows="4"
+              class="custom-textarea">
+            </ion-textarea>
+          </div>
+        </div>
+
+        <ion-button expand="block" (click)="saveCategory()" class="save-button" shape="round">
+          <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+          {{ editingCategory ? 'Mettre à jour' : 'Créer' }}
+        </ion-button>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- Expert Modal -->
+<ion-modal [isOpen]="isExpertModalOpen" (didDismiss)="closeExpertModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>{{ editingExpert ? 'Modifier' : 'Ajouter' }} un expert</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeExpertModal()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="modal-content">
+      <div class="modal-form">
+        <div class="form-group">
+          <div class="input-wrapper">
+            <ion-icon name="person-outline" class="input-icon"></ion-icon>
+            <ion-input
+              [(ngModel)]="expertForm.name"
+              placeholder="Nom complet"
+              class="custom-input">
+            </ion-input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-wrapper">
+            <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+            <ion-input
+              [(ngModel)]="expertForm.email"
+              type="email"
+              placeholder="Email"
+              class="custom-input">
+            </ion-input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="select-wrapper">
+            <ion-icon name="grid-outline" class="input-icon"></ion-icon>
+            <ion-select
+              [(ngModel)]="expertForm.categoryId"
+              placeholder="Sélectionner une catégorie"
+              class="custom-select">
+              <ion-select-option *ngFor="let cat of categories" [value]="cat.id">
+                {{ cat.name }}
+              </ion-select-option>
+            </ion-select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="textarea-wrapper">
+            <ion-icon name="document-text-outline" class="input-icon"></ion-icon>
+            <ion-textarea
+              [(ngModel)]="expertForm.bio"
+              placeholder="Biographie"
+              rows="4"
+              class="custom-textarea">
+            </ion-textarea>
+          </div>
+        </div>
+
+        <ion-button expand="block" (click)="saveExpert()" class="save-button" shape="round">
+          <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+          {{ editingExpert ? 'Mettre à jour' : 'Créer' }}
+        </ion-button>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- User Modal -->
+<ion-modal [isOpen]="isUserModalOpen" (didDismiss)="closeUserModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>{{ editingUser ? 'Modifier' : 'Ajouter' }} un utilisateur</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeUserModal()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="modal-content">
+      <div class="modal-form">
+        <div class="form-group">
+          <div class="input-wrapper">
+            <ion-icon name="person-outline" class="input-icon"></ion-icon>
+            <ion-input
+              [(ngModel)]="userForm.displayName"
+              placeholder="Nom complet"
+              class="custom-input">
+            </ion-input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-wrapper">
+            <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+            <ion-input
+              [(ngModel)]="userForm.email"
+              type="email"
+              placeholder="Email"
+              class="custom-input">
+            </ion-input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="select-wrapper">
+            <ion-icon name="shield-outline" class="input-icon"></ion-icon>
+            <ion-select
+              [(ngModel)]="userForm.role"
+              placeholder="Rôle"
+              class="custom-select">
+              <ion-select-option value="user">User</ion-select-option>
+              <ion-select-option value="admin">Admin</ion-select-option>
+            </ion-select>
+          </div>
+        </div>
+
+        <ion-button expand="block" (click)="saveUser()" class="save-button" shape="round">
+          <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+          {{ editingUser ? 'Mettre à jour' : 'Créer' }}
+        </ion-button>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
