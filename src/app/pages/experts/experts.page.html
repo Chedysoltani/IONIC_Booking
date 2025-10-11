@@ -1,13 +1,130 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>experts</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nos Experts</ion-title>
+  </ion-toolbar>
+
+  <!-- Search Bar -->
+  <ion-toolbar class="search-toolbar">
+    <div class="search-wrapper">
+      <ion-icon name="search-outline" class="search-icon"></ion-icon>
+      <ion-input 
+        [(ngModel)]="searchTerm" 
+        (ionInput)="onSearch()"
+        placeholder="Rechercher un expert..."
+        class="search-input">
+      </ion-input>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">experts</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="experts-content">
+  <!-- Categories Chips -->
+  <div class="categories-section" *ngIf="categories$ | async as categories">
+    <div class="categories-scroll">
+      <ion-chip 
+        [class.chip-active]="(categoryId$ | async) === null"
+        [routerLink]="['/experts']"
+        class="category-chip">
+        <ion-label>Tous</ion-label>
+      </ion-chip>
+      <ion-chip 
+        *ngFor="let category of categories" 
+        [class.chip-active]="(categoryId$ | async) === category.id"
+        [routerLink]="['/experts']"
+        [queryParams]="{categoryId: category.id}"
+        class="category-chip">
+        <ion-label>{{ category.name }}</ion-label>
+      </ion-chip>
+    </div>
+  </div>
+
+  <div class="page-container">
+    <ng-container *ngIf="filteredExperts$ | async as experts; else loading">
+      <ng-container *ngIf="experts.length; else empty">
+        <!-- Experts Grid -->
+        <div class="experts-grid">
+          <ion-card 
+            *ngFor="let expert of experts; let i = index; trackBy: trackByExpert" 
+            class="expert-card animate-card"
+            [style.animation-delay]="(i * 0.1) + 's'"
+            (click)="viewExpertDetails(expert)">
+            
+            <div class="expert-card-header">
+              <div class="expert-avatar-wrapper">
+                <div class="expert-avatar">
+                  {{ expert.name.charAt(0).toUpperCase() }}
+                </div>
+              </div>
+            
+            </div>
+
+            <ion-card-header>
+              <ion-card-title class="expert-name">{{ expert.name }}</ion-card-title>
+              <ion-card-subtitle class="expert-category">
+                <ion-icon name="briefcase-outline"></ion-icon>
+                {{ (categoryNameMap$ | async)?.[expert.categoryId] || 'N/A' }}
+              </ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-card-content>
+              <p class="expert-bio">{{ expert.bio }}</p>
+              
+              <div class="expert-info">
+                <div class="info-item">
+                  <ion-icon name="mail-outline"></ion-icon>
+                  <span>{{ expert.email }}</span>
+                </div>
+              </div>
+
+              <ion-button 
+                expand="block" 
+                (click)="bookConsultation(expert, $event)" 
+                class="book-button"
+                shape="round">
+                <ion-icon slot="start" name="calendar-outline"></ion-icon>
+                Réserver une consultation
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #loading>
+      <div class="experts-grid">
+        <ion-card *ngFor="let s of [0,1,2,3,4,5]" class="expert-card skeleton-card">
+          <div class="expert-card-header">
+            <ion-skeleton-text animated style="width: 80px; height: 80px; border-radius: 50%;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 60px; height: 32px; border-radius: 12px;"></ion-skeleton-text>
+          </div>
+          <ion-card-header>
+            <ion-skeleton-text animated style="width: 60%; height: 24px;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%; height: 16px; margin-top: 8px;"></ion-skeleton-text>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-skeleton-text animated style="width: 100%; height: 16px;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 80%; height: 16px;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 100%; height: 44px; margin-top: 16px; border-radius: 22px;"></ion-skeleton-text>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ng-template>
+
+    <ng-template #empty>
+      <div class="empty-state">
+        <div class="empty-icon">
+          <ion-icon name="people-outline"></ion-icon>
+        </div>
+        <h3>Aucun expert trouvé</h3>
+        <p>Il n'y a pas d'expert disponible pour cette catégorie actuellement.</p>
+        <ion-button [routerLink]="['/experts']" fill="outline" shape="round">
+          <ion-icon slot="start" name="refresh-outline"></ion-icon>
+          Voir tous les experts
+        </ion-button>
+      </div>
+    </ng-template>
+  </div>
 </ion-content>

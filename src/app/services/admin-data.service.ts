@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, doc, addDoc, updateDoc, deleteDoc, query, orderBy, getCountFromServer } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Firestore, collection, collectionData, doc, addDoc, updateDoc, deleteDoc, query, orderBy, getCountFromServer, where } from '@angular/fire/firestore';
+import { Observable, map } from 'rxjs';
 
 export interface Category {
   id: string;
@@ -57,6 +57,13 @@ export class AdminDataService {
     const ref = collection(this.firestore, 'experts');
     const q = query(ref, orderBy('name'));
     return collectionData(q, { idField: 'id' }) as Observable<Expert[]>;
+  }
+
+  getExpertsByCategory$(categoryId: string): Observable<Expert[]> {
+    const ref = collection(this.firestore, 'experts');
+    const q = query(ref, where('categoryId', '==', categoryId));
+    return (collectionData(q, { idField: 'id' }) as Observable<Expert[]>)
+      .pipe(map(list => [...list].sort((a, b) => (a.name || '').localeCompare(b.name || ''))));
   }
 
   addExpert(expert: Omit<Expert, 'id'>) {

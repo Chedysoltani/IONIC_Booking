@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { IonicModule } from "@ionic/angular";
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { AdminDataService, Category } from '../../services/admin-data.service';
 
 @Component({
   selector: 'app-landing',
@@ -12,17 +14,59 @@ import { CommonModule } from '@angular/common';
 })
 export class LandingPage {
 
-  constructor(private router: Router) {}
+  categories$!: Observable<Category[]>;
+
+  constructor(private router: Router, private adminData: AdminDataService) {
+    this.categories$ = this.adminData.getCategories$();
+  }
 
   navigateToRegister() {
     this.router.navigateByUrl('/register');
   }
 
-  navigateToExperts() {
-    this.router.navigateByUrl('/experts');
+  navigateToExperts(categoryId?: string) {
+    if (categoryId) {
+      this.router.navigate(['/experts'], { queryParams: { categoryId } });
+    } else {
+      this.router.navigateByUrl('/experts');
+    }
   }
 
   navigateToLogin() {
     this.router.navigateByUrl('/login');
+  }
+
+  trackById(index: number, c: Category) {
+    return c.id;
+  }
+
+  private normalize(text: string): string {
+    return (text || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '')
+      .trim();
+  }
+
+  getCategoryClass(name: string): string {
+    const n = this.normalize(name);
+    if (n.includes('coach') || n.includes('developpement') || n.includes('carriere')) return 'coaching';
+    if (n.includes('juridique') || n.includes('droit')) return 'legal';
+    if (n.includes('business') || n.includes('marketing') || n.includes('strategie') || n.includes('entreprise')) return 'business';
+    if (n.includes('sante') || n.includes('bien-etre') || n.includes('bienetre') || n.includes('psy') || n.includes('nutrition')) return 'health';
+    if (n.includes('tech') || n.includes('it') || n.includes('code') || n.includes('informatique')) return 'tech';
+    if (n.includes('finance') || n.includes('comptable') || n.includes('fiscal')) return 'finance';
+    return 'coaching'; // default style
+  }
+
+  getCategoryIcon(name: string): string {
+    const n = this.normalize(name);
+    if (n.includes('coach') || n.includes('developpement') || n.includes('carriere')) return 'fitness-outline';
+    if (n.includes('juridique') || n.includes('droit')) return 'document-text-outline';
+    if (n.includes('business') || n.includes('marketing') || n.includes('strategie') || n.includes('entreprise')) return 'briefcase-outline';
+    if (n.includes('sante') || n.includes('bien-etre') || n.includes('bienetre') || n.includes('psy') || n.includes('nutrition')) return 'medkit-outline';
+    if (n.includes('tech') || n.includes('it') || n.includes('code') || n.includes('informatique')) return 'code-slash-outline';
+    if (n.includes('finance') || n.includes('comptable') || n.includes('fiscal')) return 'cash-outline';
+    return 'pricetag-outline'; // fallback icon
   }
 }

@@ -69,82 +69,48 @@
   <!-- Categories Section -->
   <section class="categories-section">
     <div class="section-container">
-      <div class="section-header">
-        <h2>Trouvez l'expert qu'il vous faut</h2>
-        <p>Des professionnels qualifiés dans tous les domaines</p>
+    <div class="section-header">
+      <h2>Trouvez l'expert qu'il vous faut</h2>
+      <p>Des professionnels qualifiés dans tous les domaines</p>
       </div>
       <div class="categories-grid">
-        <ion-card class="category-card">
-          <div class="category-icon coaching">
-            <ion-icon name="fitness-outline"></ion-icon>
-          </div>
-          <ion-card-header>
-            <ion-card-title>Coaching</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            Développement personnel, coaching de vie, carrière professionnelle
-          </ion-card-content>
-        </ion-card>
+        <ng-container *ngIf="categories$ | async as categories; else loadingCats">
+          <ng-container *ngIf="categories.length; else emptyCats">
+            <ion-card class="category-card" *ngFor="let cat of categories; trackBy: trackById" (click)="navigateToExperts(cat.id)" button="true">
+              <div class="category-icon" [ngClass]="getCategoryClass(cat.name)">
+                <ion-icon [name]="getCategoryIcon(cat.name)"></ion-icon>
+              </div>
+              <ion-card-header>
+                <ion-card-title>{{ cat.name }}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                {{ cat.description }}
+              </ion-card-content>
+            </ion-card>
+          </ng-container>
+        </ng-container>
 
-        <ion-card class="category-card">
-          <div class="category-icon legal">
-            <ion-icon name="document-text-outline"></ion-icon>
-          </div>
-          <ion-card-header>
-            <ion-card-title>Juridique</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            Avocats, conseils juridiques, droit des affaires et du travail
-          </ion-card-content>
-        </ion-card>
+        <ng-template #loadingCats>
+          <ion-card class="category-card" *ngFor="let s of [0,1,2,3,4,5]">
+            <div class="category-icon">
+              <ion-skeleton-text animated style="width: 32px; height: 32px;"></ion-skeleton-text>
+            </div>
+            <ion-card-header>
+              <ion-card-title>
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+            </ion-card-content>
+          </ion-card>
+        </ng-template>
 
-        <ion-card class="category-card">
-          <div class="category-icon business">
-            <ion-icon name="briefcase-outline"></ion-icon>
+        <ng-template #emptyCats>
+          <div class="empty-state">
+            Aucune catégorie trouvée.
           </div>
-          <ion-card-header>
-            <ion-card-title>Business</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            Consultants, stratégie d'entreprise, marketing et finance
-          </ion-card-content>
-        </ion-card>
-
-        <ion-card class="category-card">
-          <div class="category-icon health">
-            <ion-icon name="medkit-outline"></ion-icon>
-          </div>
-          <ion-card-header>
-            <ion-card-title>Santé & Bien-être</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            Nutritionnistes, psychologues, thérapeutes certifiés
-          </ion-card-content>
-        </ion-card>
-
-        <ion-card class="category-card">
-          <div class="category-icon tech">
-            <ion-icon name="code-slash-outline"></ion-icon>
-          </div>
-          <ion-card-header>
-            <ion-card-title>Tech & IT</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            Développeurs, experts cybersécurité, consultants cloud
-          </ion-card-content>
-        </ion-card>
-
-        <ion-card class="category-card">
-          <div class="category-icon finance">
-            <ion-icon name="cash-outline"></ion-icon>
-          </div>
-          <ion-card-header>
-            <ion-card-title>Finance</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            Conseillers financiers, experts-comptables, fiscalistes
-          </ion-card-content>
-        </ion-card>
+        </ng-template>
       </div>
     </div>
   </section>

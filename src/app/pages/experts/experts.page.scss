@@ -1,0 +1,438 @@
+.experts-content {
+    --background: #f5f7fa;
+  }
+  
+  // Animations
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .animate-card {
+    animation: scaleIn 0.5s ease-out backwards;
+  }
+  
+  // Search Toolbar
+  .search-toolbar {
+    --background: white;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .search-container {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  
+  .search-wrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #f7f8fc;
+    border-radius: 12px;
+    padding: 0 16px;
+    height: 48px;
+    transition: all 0.3s ease;
+  
+    &:focus-within {
+      background: white;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+  
+    .search-icon {
+      color: #9ca3af;
+      font-size: 20px;
+      margin-right: 12px;
+    }
+  
+    .search-input {
+      flex: 1;
+      --padding-start: 0;
+      --padding-end: 0;
+      font-size: 15px;
+    }
+  }
+  
+  .filter-button {
+    --padding-start: 12px;
+    --padding-end: 12px;
+    height: 48px;
+    width: 48px;
+    --border-radius: 12px;
+    --background: #f7f8fc;
+    --color: #667eea;
+  
+    ion-icon {
+      font-size: 24px;
+    }
+  }
+  
+  // Categories Section
+  .categories-section {
+    background: white;
+    padding: 16px 0;
+    border-bottom: 1px solid #e5e7eb;
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .categories-scroll {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  
+  .category-chip {
+    --background: #f3f4f6;
+    --color: #4b5563;
+    flex-shrink: 0;
+    font-weight: 500;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  
+    &:hover {
+      --background: #e5e7eb;
+    }
+  
+    &.chip-active {
+      --background: linear-gradient(135deg, #667eea, #764ba2);
+      --color: white;
+      font-weight: 600;
+    }
+  }
+  
+  // Page Container
+  .page-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px 16px;
+  }
+  
+  // Experts Grid
+  .experts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  
+  .expert-card {
+    margin: 0;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: white;
+    overflow: hidden;
+  
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+    }
+  
+    &.skeleton-card {
+      cursor: default;
+      &:hover {
+        transform: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+    }
+  }
+  
+  .expert-card-header {
+    position: relative;
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    padding: 24px 20px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .expert-avatar-wrapper {
+    position: relative;
+  }
+  
+  .expert-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+  
+    .expert-card:hover & {
+      transform: scale(1.1);
+    }
+  }
+  
+  .status-badge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+    ion-icon {
+      font-size: 18px;
+      color: #9ca3af;
+    }
+  
+    &.available ion-icon {
+      color: #10b981;
+    }
+  }
+  
+  .expert-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: white;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-weight: 600;
+    color: #1f2937;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  
+    .star-icon {
+      color: #fbbf24;
+      font-size: 16px;
+    }
+  
+    span {
+      font-size: 14px;
+    }
+  }
+  
+  ion-card-header {
+    padding: 16px 20px 12px;
+  }
+  
+  .expert-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 8px 0;
+  }
+  
+  .expert-category {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #667eea;
+    font-weight: 500;
+    font-size: 14px;
+    margin: 0;
+  
+    ion-icon {
+      font-size: 16px;
+    }
+  }
+  
+  ion-card-content {
+    padding: 0 20px 20px;
+  }
+  
+  .expert-bio {
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .expert-info {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding: 12px 0;
+    border-top: 1px solid #f3f4f6;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #6b7280;
+    font-size: 13px;
+  
+    ion-icon {
+      font-size: 16px;
+      color: #9ca3af;
+    }
+  }
+  
+  .book-button {
+    --background: linear-gradient(135deg, #667eea, #764ba2);
+    --box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    height: 44px;
+    font-weight: 600;
+    margin: 0;
+  
+    &:hover {
+      --box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+    }
+  }
+  
+  // Empty State
+  .empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    animation: fadeIn 0.5s ease-out;
+  
+    .empty-icon {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 24px;
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      ion-icon {
+        font-size: 64px;
+        color: #667eea;
+        opacity: 0.5;
+      }
+    }
+  
+    h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+      margin: 0 0 12px 0;
+    }
+  
+    p {
+      font-size: 16px;
+      color: #6b7280;
+      line-height: 1.6;
+      margin: 0 0 24px 0;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    ion-button {
+      --background: linear-gradient(135deg, #667eea, #764ba2);
+      --border-color: #667eea;
+    }
+  }
+  
+  // Filter Modal
+  .modal-content {
+    --background: #f9fafb;
+  }
+  
+  .filter-section {
+    background: white;
+    padding: 20px;
+    margin-bottom: 16px;
+  
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1f2937;
+      margin: 0 0 16px 0;
+    }
+  
+    ion-list {
+      background: transparent;
+    }
+  
+    ion-item {
+      --background: transparent;
+      --padding-start: 0;
+    }
+  }
+  
+  .filter-actions {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .apply-button {
+    --background: linear-gradient(135deg, #667eea, #764ba2);
+    --box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    height: 48px;
+    font-weight: 600;
+  }
+  
+  // Responsive
+  @media (max-width: 768px) {
+    .experts-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .expert-card-header {
+      padding: 20px 16px 12px;
+    }
+  
+    .expert-avatar {
+      width: 70px;
+      height: 70px;
+      font-size: 28px;
+    }
+  
+    .page-container {
+      padding: 20px 12px;
+    }
+  }
+  
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .experts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
