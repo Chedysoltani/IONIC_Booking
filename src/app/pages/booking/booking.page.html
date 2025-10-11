@@ -1,13 +1,117 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>booking</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/experts"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Réservation</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">booking</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="booking-content">
+  <div class="booking-container">
+    <!-- Expert Info Card -->
+    <div class="expert-info-section animate-slide-up" *ngIf="expertView$ | async as vm">
+      <ion-card class="expert-info-card">
+        <div class="expert-info-header">
+          <div class="expert-avatar-large">
+            {{ vm.expert.name.charAt(0).toUpperCase() }}
+          </div>
+          <div class="expert-details">
+            <h2>{{ vm.expert.name }}</h2>
+            <p class="expert-specialty">
+              <ion-icon name="briefcase-outline"></ion-icon>
+              {{ vm.categoryName }}
+            </p>
+      
+          </div>
+        </div>
+      </ion-card>
+    </div>
+
+    <!-- Booking Form -->
+    <div class="booking-form-section animate-slide-up delay-1">
+      <ion-card class="booking-card">
+        <ion-card-header>
+          <div class="card-header-icon">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </div>
+          <ion-card-title>Choisir votre créneau</ion-card-title>
+          <ion-card-subtitle>Sélectionnez la date et l'heure de votre consultation</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <!-- Date Time Picker -->
+          <div class="datetime-wrapper">
+            <ion-datetime
+              presentation="date-time"
+              minute-values="0,15,30,45"
+              [(ngModel)]="dateTimeISO"
+              [min]="minDate"
+              [max]="maxDate"
+              class="custom-datetime">
+            </ion-datetime>
+          </div>
+
+          <!-- Selected Date Display -->
+          <div class="selected-date" *ngIf="dateTimeISO">
+            <div class="date-icon">
+              <ion-icon name="time-outline"></ion-icon>
+            </div>
+            <div class="date-info">
+              <span class="label">Créneau sélectionné</span>
+              <span class="value">{{ dateTimeISO | date:'fullDate' }} à {{ dateTimeISO | date:'shortTime' }}</span>
+            </div>
+          </div>
+
+          <!-- Info Box -->
+          <div class="info-box">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <p>L'expert confirmera votre réservation par email. Assurez-vous d'être disponible au créneau choisi.</p>
+          </div>
+
+          <!-- Confirm Button -->
+          <ion-button 
+            expand="block" 
+            (click)="confirm()" 
+            [disabled]="!dateTimeISO"
+            class="confirm-button"
+            shape="round">
+            <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+            Confirmer la réservation
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- Benefits Section -->
+    <div class="benefits-section animate-fade-in delay-2">
+      <h3>Avantages de nos consultations</h3>
+      <div class="benefits-grid">
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <ion-icon name="shield-checkmark-outline"></ion-icon>
+          </div>
+          <p>Experts vérifiés</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <ion-icon name="videocam-outline"></ion-icon>
+          </div>
+          <p>Visio sécurisée</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+          </div>
+          <p>Paiement sécurisé</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">
+            <ion-icon name="calendar-clear-outline"></ion-icon>
+          </div>
+          <p>Annulation flexible</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>

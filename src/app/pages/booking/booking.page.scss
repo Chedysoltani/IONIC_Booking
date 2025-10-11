@@ -1,0 +1,386 @@
+.booking-content {
+    --background: #f5f7fa;
+  }
+  
+  // Animations
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+  
+  .delay-1 {
+    animation-delay: 0.2s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+  
+  .delay-2 {
+    animation-delay: 0.4s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+  
+  // Container
+  .booking-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px 16px;
+  }
+  
+  // Expert Info Section
+  .expert-info-section {
+    margin-bottom: 24px;
+  }
+  
+  .expert-info-card {
+    margin: 0;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    background: white;
+  }
+  
+  .expert-info-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  }
+  
+  .expert-avatar-large {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    flex-shrink: 0;
+  }
+  
+  .expert-details {
+    flex: 1;
+  
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+      margin: 0 0 8px 0;
+    }
+  
+    .expert-specialty {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #667eea;
+      font-weight: 500;
+      font-size: 15px;
+      margin: 0 0 8px 0;
+  
+      ion-icon {
+        font-size: 18px;
+      }
+    }
+  
+    .expert-rating {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: #6b7280;
+  
+      .star-icon {
+        color: #fbbf24;
+        font-size: 16px;
+      }
+  
+      .reviews {
+        margin-left: 4px;
+        opacity: 0.8;
+      }
+    }
+  }
+  
+  // Booking Form Section
+  .booking-form-section {
+    margin-bottom: 24px;
+  }
+  
+  .booking-card {
+    margin: 0;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    background: white;
+  }
+  
+  ion-card-header {
+    padding: 24px 24px 16px;
+    text-align: center;
+  
+    .card-header-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 16px;
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      ion-icon {
+        font-size: 32px;
+        color: #667eea;
+      }
+    }
+  
+    ion-card-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+  
+    ion-card-subtitle {
+      font-size: 15px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+  }
+  
+  ion-card-content {
+    padding: 24px;
+  }
+  
+  // DateTime Wrapper
+  .datetime-wrapper {
+    background: #f9fafb;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 20px;
+    border: 2px solid #e5e7eb;
+    transition: all 0.3s ease;
+  
+    &:focus-within {
+      border-color: #667eea;
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+  }
+  
+  .custom-datetime {
+    --background: transparent;
+    width: 100%;
+  }
+  
+  // Selected Date Display
+  .selected-date {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  
+    .date-icon {
+      width: 48px;
+      height: 48px;
+      background: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+  
+      ion-icon {
+        font-size: 24px;
+        color: #667eea;
+      }
+    }
+  
+    .date-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+  
+      .label {
+        font-size: 13px;
+        color: #6b7280;
+        font-weight: 500;
+      }
+  
+      .value {
+        font-size: 16px;
+        color: #1f2937;
+        font-weight: 600;
+      }
+    }
+  }
+  
+  // Info Box
+  .info-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #fef3c7;
+    padding: 14px 16px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border-left: 4px solid #f59e0b;
+  
+    ion-icon {
+      font-size: 20px;
+      color: #d97706;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+  
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: #92400e;
+      line-height: 1.5;
+    }
+  }
+  
+  // Confirm Button
+  .confirm-button {
+    --background: linear-gradient(135deg, #667eea, #764ba2);
+    --box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    height: 56px;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+  
+    &:hover:not([disabled]) {
+      --box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
+      transform: translateY(-2px);
+    }
+  
+    &[disabled] {
+      opacity: 0.5;
+    }
+  }
+  
+  // Benefits Section
+  .benefits-section {
+    background: white;
+    padding: 24px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  
+    h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1f2937;
+      margin: 0 0 20px 0;
+      text-align: center;
+    }
+  }
+  
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+  }
+  
+  .benefit-item {
+    text-align: center;
+    padding: 16px 12px;
+    background: #f9fafb;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  
+    &:hover {
+      background: #f3f4f6;
+      transform: translateY(-4px);
+    }
+  
+    .benefit-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 12px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      ion-icon {
+        font-size: 24px;
+        color: white;
+      }
+    }
+  
+    p {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 500;
+      color: #4b5563;
+    }
+  }
+  
+  // Responsive
+  @media (max-width: 768px) {
+    .booking-container {
+      padding: 20px 12px;
+    }
+  
+    .expert-info-header {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .expert-avatar-large {
+      width: 70px;
+      height: 70px;
+      font-size: 32px;
+    }
+  
+    .expert-details {
+      h2 {
+        font-size: 20px;
+      }
+    }
+  
+    .benefits-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    ion-card-header {
+      padding: 20px 16px 12px;
+    }
+  
+    ion-card-content {
+      padding: 20px 16px;
+    }
+  }

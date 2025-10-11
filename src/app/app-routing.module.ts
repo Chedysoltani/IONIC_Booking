@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'register',  // pour tester la page register
+    redirectTo: 'landing-page',
     pathMatch: 'full'
   },
   {
@@ -26,11 +27,13 @@ const routes: Routes = [
   },
   {
     path: 'experts',
-    loadComponent: () => import('./pages/experts/experts.page').then(m => m.ExpertsPage)
+    loadComponent: () => import('./pages/experts/experts.page').then(m => m.ExpertsPage),
+    canActivate: [authGuard]
   },
   {
     path: 'booking',
-    loadComponent: () => import('./pages/booking/booking.page').then(m => m.BookingPage)
+    loadComponent: () => import('./pages/booking/booking.page').then(m => m.BookingPage),
+    canActivate: [authGuard]
   },
   {
     path: 'forgot-password',

@@ -2,9 +2,13 @@
   <ion-toolbar color="primary" class="landing-toolbar">
     <ion-title>ExpertConnect</ion-title>
     <ion-buttons slot="end">
-      <ion-button routerLink="/login" fill="clear">
+      <ion-button *ngIf="!isLoggedIn" routerLink="/login" fill="clear">
         <ion-icon slot="start" name="log-in-outline"></ion-icon>
         Connexion
+      </ion-button>
+      <ion-button *ngIf="isLoggedIn" (click)="logout()" fill="clear" color="light">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        Se déconnecter
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -34,7 +38,7 @@
             <ion-icon slot="start" name="person-add-outline"></ion-icon>
             Commencer maintenant
           </ion-button>
-          <ion-button routerLink="/experts" size="large" fill="outline" class="secondary-button" shape="round">
+          <ion-button (click)="navigateToExperts()" size="large" fill="outline" class="secondary-button" shape="round">
             <ion-icon slot="start" name="search-outline"></ion-icon>
             Parcourir les experts
           </ion-button>
@@ -229,7 +233,7 @@
         <div class="footer-section">
           <h4>Liens rapides</h4>
           <a routerLink="/about">À propos</a>
-          <a routerLink="/experts">Nos experts</a>
+          <a href="#" (click)="$event.preventDefault(); navigateToExperts()">Nos experts</a>
           <a routerLink="/pricing">Tarifs</a>
           <a routerLink="/contact">Contact</a>
         </div>

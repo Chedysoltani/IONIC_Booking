@@ -87,9 +87,7 @@ export class ExpertsPage implements OnInit {
 
   bookConsultation(expert: Expert, event: Event) {
     event.stopPropagation();
-    // TODO: Naviguer vers la page de réservation
-    console.log('Book consultation with:', expert);
-    // this.router.navigate(['/booking', expert.id]);
+    this.router.navigate(['/booking'], { queryParams: { expertId: expert.id } });
   }
 
   trackByExpert(index: number, e: Expert) {

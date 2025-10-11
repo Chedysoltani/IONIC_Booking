@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../services/auth';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { IonicModule } from "@ionic/angular";
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -18,7 +18,7 @@ export class LoginPage {
   rememberMe = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
 
   async login() {
     this.errorMessage = '';
@@ -30,8 +30,17 @@ export class LoginPage {
 
     try {
       await this.authService.login(this.email, this.password);
-      // Rediriger vers la page d'accueil ou le tableau de bord
-      this.router.navigateByUrl('/landing-page');
+      const redirectTo = this.route.snapshot.queryParamMap.get('redirectTo');
+      const categoryId = this.route.snapshot.queryParamMap.get('categoryId');
+      if (redirectTo) {
+        if (categoryId) {
+          this.router.navigate([redirectTo], { queryParams: { categoryId } });
+        } else {
+          this.router.navigateByUrl(redirectTo);
+        }
+      } else {
+        this.router.navigateByUrl('/landing-page');
+      }
     } catch (err: any) {
       if (err.code === 'auth/user-not-found') {
         this.errorMessage = 'Aucun compte trouvé avec cet email';

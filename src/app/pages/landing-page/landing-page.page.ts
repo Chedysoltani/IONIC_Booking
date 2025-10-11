@@ -4,6 +4,7 @@ import { IonicModule } from "@ionic/angular";
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { AdminDataService, Category } from '../../services/admin-data.service';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-landing',
@@ -16,8 +17,13 @@ export class LandingPage {
 
   categories$!: Observable<Category[]>;
 
-  constructor(private router: Router, private adminData: AdminDataService) {
+  isLoggedIn = false;
+
+  constructor(private router: Router, private adminData: AdminDataService, private auth: AuthService) {
     this.categories$ = this.adminData.getCategories$();
+    this.auth.currentUser$.subscribe(u => {
+      this.isLoggedIn = !!u;
+    });
   }
 
   navigateToRegister() {
@@ -25,6 +31,12 @@ export class LandingPage {
   }
 
   navigateToExperts(categoryId?: string) {
+    if (!this.isLoggedIn) {
+      const params: any = { redirectTo: '/experts' };
+      if (categoryId) params.categoryId = categoryId;
+      this.router.navigate(['/login'], { queryParams: params });
+      return;
+    }
     if (categoryId) {
       this.router.navigate(['/experts'], { queryParams: { categoryId } });
     } else {
@@ -34,6 +46,14 @@ export class LandingPage {
 
   navigateToLogin() {
     this.router.navigateByUrl('/login');
+  }
+
+  async logout() {
+    try {
+      await this.auth.logout();
+    } finally {
+      this.router.navigateByUrl('/login');
+    }
   }
 
   trackById(index: number, c: Category) {
