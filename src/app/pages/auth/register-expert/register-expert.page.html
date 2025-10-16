@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Inscription Expert</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="register-expert-content">
+  <div class="container">
+    <ion-card>
+      <ion-card-content>
+        <form (ngSubmit)="registerExpert()">
+          <div class="form-group">
+            <div class="input-wrapper">
+              <ion-icon name="person-outline" class="input-icon"></ion-icon>
+              <ion-input [(ngModel)]="name" name="name" placeholder="Nom et prénom"></ion-input>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-wrapper">
+              <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+              <ion-input type="email" [(ngModel)]="email" name="email" placeholder="Email"></ion-input>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-wrapper">
+              <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+              <ion-input type="password" [(ngModel)]="password" name="password" placeholder="Mot de passe"></ion-input>
+            </div>
+            <ion-text class="password-hint">
+              <small>Minimum 6 caractères</small>
+            </ion-text>
+          </div>
+
+          <div class="form-group">
+            <div class="input-wrapper">
+              <ion-icon name="book-outline" class="input-icon"></ion-icon>
+              <ion-textarea [(ngModel)]="bio" name="bio" placeholder="Bio (optionnel)"></ion-textarea>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-wrapper">
+              <ion-icon name="pricetag-outline" class="input-icon"></ion-icon>
+              <ion-select [(ngModel)]="categoryId" name="categoryId" interface="popover" placeholder="Choisir une catégorie">
+                <ion-select-option *ngFor="let c of categories" [value]="c.id">{{ c.name }}</ion-select-option>
+              </ion-select>
+            </div>
+          </div>
+
+          <ion-text color="danger" *ngIf="errorMessage">
+            <div class="error-box">
+              <ion-icon name="alert-circle-outline"></ion-icon>
+              <span>{{ errorMessage }}</span>
+            </div>
+          </ion-text>
+
+          <ion-button type="submit" expand="block" [disabled]="loading">
+            <ion-spinner *ngIf="loading" name="crescent" slot="start"></ion-spinner>
+            Créer mon compte expert
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

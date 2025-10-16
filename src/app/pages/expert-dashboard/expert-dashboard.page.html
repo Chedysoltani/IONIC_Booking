@@ -1,0 +1,221 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Tableau de bord Expert</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="refresh()">
+        <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="expert-dashboard-content">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="dashboard-container">
+    <!-- Loading State -->
+    <ng-container *ngIf="loading; else loaded">
+      <div class="loading-section">
+        <ion-card class="expert-info-card skeleton-card">
+          <div class="expert-header">
+            <ion-skeleton-text animated style="width: 80px; height: 80px; border-radius: 50%;"></ion-skeleton-text>
+            <div class="expert-details">
+              <ion-skeleton-text animated style="width: 60%; height: 24px;"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%; height: 16px; margin-top: 8px;"></ion-skeleton-text>
+            </div>
+          </div>
+        </ion-card>
+
+        <div class="bookings-list">
+          <ion-card *ngFor="let s of [0,1,2]" class="booking-card skeleton-card">
+            <ion-card-content>
+              <ion-skeleton-text animated style="width: 100%; height: 60px;"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 100%; height: 40px; margin-top: 16px;"></ion-skeleton-text>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- Loaded State -->
+    <ng-template #loaded>
+      <ng-container *ngIf="expert; else noExpert">
+        <!-- Expert Info Card -->
+        <div class="expert-info-section animate-fade-in">
+          <ion-card class="expert-info-card">
+            <div class="expert-header">
+              <div class="expert-avatar-large">
+                {{ expert.name.charAt(0).toUpperCase() }}
+              </div>
+              <div class="expert-details">
+                <h2>{{ expert.name }}</h2>
+                <p class="expert-email">
+                  <ion-icon name="mail-outline"></ion-icon>
+                  {{ expert.email }}
+                </p>
+                <p class="expert-bio">{{ expert.bio }}</p>
+              </div>
+            </div>
+            
+            <div class="stats-row">
+              <div class="stat-item">
+                <ion-icon name="calendar-outline"></ion-icon>
+                <div>
+                  <span class="stat-value">{{ bookings.length }}</span>
+                  <span class="stat-label">Demandes</span>
+                </div>
+              </div>
+              <div class="stat-item">
+                <ion-icon name="checkmark-circle-outline"></ion-icon>
+                <div>
+                  <span class="stat-value">{{ getConfirmedCount() }}</span>
+                  <span class="stat-label">Confirmées</span>
+                </div>
+              </div>
+              <div class="stat-item">
+                <ion-icon name="time-outline"></ion-icon>
+                <div>
+                  <span class="stat-value">{{ getPendingCount() }}</span>
+                  <span class="stat-label">En attente</span>
+                </div>
+              </div>
+            </div>
+          </ion-card>
+        </div>
+
+        <!-- Bookings Section -->
+        <div class="bookings-section">
+          <div class="section-header">
+            <h3>
+              <ion-icon name="calendar-outline"></ion-icon>
+              Demandes de réservation
+            </h3>
+          </div>
+
+          <ng-container *ngIf="bookings.length > 0; else noBookings">
+            <div class="bookings-list">
+              <ion-card 
+                *ngFor="let booking of bookings; let i = index" 
+                class="booking-card animate-slide-up"
+                [style.animation-delay]="(i * 0.1) + 's'"
+                [class.status-confirmed]="booking.status === 'confirmed'"
+                [class.status-pending]="booking.status === 'pending'"
+                [class.status-declined]="booking.status === 'declined'">
+                
+                <!-- Booking Header -->
+                <div class="booking-card-header">
+                  <div class="client-info">
+                    <div class="client-avatar">
+                      {{ getClientInitial(booking) }}
+                    </div>
+                    <div class="client-details">
+                      <h4>{{ booking.userDisplayName || getUserLabel(booking.userId) }}</h4>
+                      <p *ngIf="booking.userEmail">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        {{ booking.userEmail }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="status-badge" [class.confirmed]="booking.status === 'confirmed'"
+                                            [class.pending]="booking.status === 'pending'"
+                                            [class.declined]="booking.status === 'declined'">
+                    <ion-icon [name]="getStatusIcon(booking.status)"></ion-icon>
+                    <span>{{ getStatusLabel(booking.status) }}</span>
+                  </div>
+                </div>
+
+                <!-- Booking Content -->
+                <ion-card-content>
+                  <div class="booking-datetime">
+                    <div class="datetime-item">
+                      <ion-icon name="calendar-outline"></ion-icon>
+                      <div>
+                        <span class="label">Date</span>
+                        <span class="value">{{ booking.dateTime | date:'fullDate' }}</span>
+                      </div>
+                    </div>
+                    <div class="datetime-item">
+                      <ion-icon name="time-outline"></ion-icon>
+                      <div>
+                        <span class="label">Heure</span>
+                        <span class="value">{{ booking.dateTime | date:'shortTime' }}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Actions -->
+                  <div class="booking-actions" *ngIf="booking.status === 'pending'">
+                    <ion-button 
+                      expand="block"
+                      (click)="accept(booking)"
+                      class="accept-button">
+                      <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+                      Accepter
+                    </ion-button>
+                    <ion-button 
+                      expand="block"
+                      fill="outline"
+                      color="danger"
+                      (click)="decline(booking)"
+                      class="decline-button">
+                      <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+                      Refuser
+                    </ion-button>
+                  </div>
+
+                  <!-- Status Message -->
+                  <div class="status-message" *ngIf="booking.status !== 'pending'">
+                    <ion-icon [name]="booking.status === 'confirmed' ? 'checkmark-circle' : 'close-circle'"></ion-icon>
+                    <span *ngIf="booking.status === 'confirmed'">Consultation confirmée</span>
+                    <span *ngIf="booking.status === 'declined'">Demande refusée</span>
+                  </div>
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </ng-container>
+
+          <!-- No Bookings -->
+          <ng-template #noBookings>
+            <div class="empty-state animate-fade-in">
+              <div class="empty-icon">
+                <ion-icon name="calendar-outline"></ion-icon>
+              </div>
+              <h3>Aucune demande</h3>
+              <p>Vous n'avez pas encore de demande de réservation.</p>
+            </div>
+          </ng-template>
+        </div>
+      </ng-container>
+
+      <!-- No Expert Profile -->
+      <ng-template #noExpert>
+        <div class="no-expert-state animate-fade-in">
+          <div class="error-icon">
+            <ion-icon name="alert-circle-outline"></ion-icon>
+          </div>
+          <h3>Profil expert introuvable</h3>
+          <p>Votre compte n'est pas associé à un profil expert. Veuillez contacter l'administrateur.</p>
+          <ion-button routerLink="/home" fill="outline" shape="round">
+            <ion-icon slot="start" name="home-outline"></ion-icon>
+            Retour à l'accueil
+          </ion-button>
+        </div>
+      </ng-template>
+    </ng-template>
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-state animate-fade-in">
+      <div class="error-icon">
+        <ion-icon name="warning-outline"></ion-icon>
+      </div>
+      <h3>Erreur de chargement</h3>
+      <p>{{ error }}</p>
+      <ion-button (click)="refresh()" fill="outline" shape="round">
+        <ion-icon slot="start" name="refresh-outline"></ion-icon>
+        Réessayer
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

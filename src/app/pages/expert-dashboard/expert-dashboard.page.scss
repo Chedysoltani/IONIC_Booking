@@ -1,0 +1,553 @@
+.expert-dashboard-content {
+  --background: #f5f7fa;
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out backwards;
+}
+
+// Container
+.dashboard-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+// Expert Info Section
+.expert-info-section {
+  margin-bottom: 32px;
+}
+
+.expert-info-card {
+  margin: 0;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  background: white;
+
+  &.skeleton-card {
+    .expert-header {
+      padding: 24px;
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    }
+  }
+}
+
+.expert-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.expert-avatar-large {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: white;
+  color: #667eea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.expert-details {
+  flex: 1;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    color: white;
+  }
+
+  .expert-email {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    margin: 0 0 8px 0;
+    opacity: 0.95;
+
+    ion-icon {
+      font-size: 16px;
+    }
+  }
+
+  .expert-bio {
+    font-size: 14px;
+    margin: 0;
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  background: white;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  ion-icon {
+    font-size: 32px;
+    color: #667eea;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 4px;
+  }
+}
+
+// Bookings Section
+.bookings-section {
+  margin-bottom: 24px;
+}
+
+.section-header {
+  margin-bottom: 20px;
+
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+
+    ion-icon {
+      font-size: 24px;
+      color: #667eea;
+    }
+  }
+}
+
+.bookings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.booking-card {
+  margin: 0;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  background: white;
+  border-left: 4px solid #9ca3af;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+
+  &.status-confirmed {
+    border-left-color: #10b981;
+  }
+
+  &.status-pending {
+    border-left-color: #f59e0b;
+  }
+
+  &.status-declined {
+    border-left-color: #ef4444;
+  }
+}
+
+.booking-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  gap: 16px;
+}
+
+.client-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.client-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.client-details {
+  flex: 1;
+  min-width: 0;
+
+  h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 4px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  p {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #6b7280;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    ion-icon {
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+  }
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #e5e7eb;
+  color: #6b7280;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+
+  ion-icon {
+    font-size: 16px;
+  }
+
+  &.confirmed {
+    background: #d1fae5;
+    color: #059669;
+  }
+
+  &.pending {
+    background: #fef3c7;
+    color: #d97706;
+  }
+
+  &.declined {
+    background: #fee2e2;
+    color: #dc2626;
+  }
+}
+
+ion-card-content {
+  padding: 20px;
+}
+
+.booking-datetime {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.datetime-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: 10px;
+
+  ion-icon {
+    font-size: 24px;
+    color: #667eea;
+    flex-shrink: 0;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .label {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+
+  .value {
+    font-size: 15px;
+    color: #1f2937;
+    font-weight: 600;
+  }
+}
+
+.booking-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  ion-button {
+    flex: 1;
+    min-width: 140px;
+    height: 44px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .accept-button {
+    --background: linear-gradient(135deg, #10b981, #059669);
+    --box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    --border-radius: 12px;
+
+    &:hover {
+      --box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+      transform: translateY(-2px);
+    }
+  }
+
+  .decline-button {
+    --border-radius: 12px;
+    --border-width: 2px;
+
+    &:hover {
+      --background: rgba(239, 68, 68, 0.05);
+    }
+  }
+}
+
+.status-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+
+  ion-icon {
+    font-size: 20px;
+  }
+
+  &:has(ion-icon[name="checkmark-circle"]) {
+    background: #d1fae5;
+    color: #059669;
+
+    ion-icon {
+      color: #10b981;
+    }
+  }
+
+  &:has(ion-icon[name="close-circle"]) {
+    background: #fee2e2;
+    color: #dc2626;
+
+    ion-icon {
+      color: #ef4444;
+    }
+  }
+}
+
+// Empty State
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  .empty-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ion-icon {
+      font-size: 56px;
+      color: #667eea;
+      opacity: 0.5;
+    }
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 8px 0;
+  }
+
+  p {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0;
+  }
+}
+
+// No Expert State
+.no-expert-state,
+.error-state {
+  text-align: center;
+  padding: 80px 20px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  .error-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 24px;
+    background: linear-gradient(135deg, #fee2e2, #fecaca);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ion-icon {
+      font-size: 64px;
+      color: #ef4444;
+      opacity: 0.8;
+    }
+  }
+
+  h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 12px 0;
+  }
+
+  p {
+    font-size: 16px;
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0 0 24px 0;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  ion-button {
+    --padding-start: 24px;
+    --padding-end: 24px;
+    height: 44px;
+    font-weight: 600;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 20px 12px;
+  }
+
+  .expert-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .expert-avatar-large {
+    width: 70px;
+    height: 70px;
+    font-size: 32px;
+  }
+
+  .expert-details h2 {
+    font-size: 20px;
+  }
+
+  .stats-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .stat-item {
+    justify-content: center;
+  }
+
+  .booking-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .status-badge {
+    align-self: flex-end;
+  }
+
+  .booking-actions {
+    flex-direction: column;
+
+    ion-button {
+      width: 100%;
+    }
+  }
+}

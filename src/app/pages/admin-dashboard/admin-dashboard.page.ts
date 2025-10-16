@@ -4,6 +4,7 @@ import { IonicModule, AlertController, ToastController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AdminDataService, Category, Expert, UserDoc } from '../../services/admin-data.service';
+import { Booking } from '../../services/booking';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -58,7 +59,8 @@ export class AdminDashboardPage implements OnInit, OnDestroy {
     private router: Router,
     private alertController: AlertController,
     private toastController: ToastController,
-    private adminDataService: AdminDataService
+    private adminDataService: AdminDataService,
+    private bookingService: Booking
   ) {}
 
   ngOnInit() {
@@ -428,6 +430,15 @@ export class AdminDashboardPage implements OnInit, OnDestroy {
       color
     });
     await toast.present();
+  }
+
+  async backfillBookingsUsers() {
+    try {
+      const res = await this.bookingService.backfillUsersOnBookings();
+      await this.showToast(`Backfill terminé: total=${res.total}, mis à jour=${res.updated}, ignorés=${res.skipped}, erreurs=${res.errors}`, 'success');
+    } catch (e) {
+      await this.showToast('Erreur lors du backfill des réservations', 'danger');
+    }
   }
 
   logout() {

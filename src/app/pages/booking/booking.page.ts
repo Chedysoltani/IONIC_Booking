@@ -96,10 +96,29 @@ export class BookingPage implements OnInit {
     }
 
     try {
+      // Try to fetch user info to denormalize
+      let userDisplayName: string | undefined = undefined;
+      let userEmail: string | undefined = undefined;
+
+      try {
+        const byUid = await firstValueFrom(this.adminData.getUserByUid$(uid));
+        let u: import('../../services/admin-data.service').UserDoc | undefined = byUid?.[0];
+        if (!u) {
+          const all = await firstValueFrom(this.adminData.getUsers$());
+          u = all.find(x => x.id === uid || x.uid === uid);
+        }
+        if (u) {
+          userDisplayName = u.displayName;
+          userEmail = u.email;
+        }
+      } catch {}
+
       await this.booking.createBooking({ 
         userId: uid, 
         expertId: this.expertId, 
-        dateTime: this.dateTimeISO 
+        dateTime: this.dateTimeISO,
+        userDisplayName,
+        userEmail,
       });
       
       const alert = await this.alertCtrl.create({

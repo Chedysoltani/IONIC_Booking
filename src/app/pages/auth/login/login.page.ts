@@ -39,7 +39,12 @@ export class LoginPage {
           this.router.navigateByUrl(redirectTo);
         }
       } else {
-        this.router.navigateByUrl('/landing-page');
+        const role = await this.authService.getUserRole();
+        if (role === 'expert') {
+          this.router.navigateByUrl('/expert-dashboard');
+        } else {
+          this.router.navigateByUrl('/landing-page');
+        }
       }
     } catch (err: any) {
       if (err.code === 'auth/user-not-found') {

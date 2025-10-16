@@ -16,6 +16,10 @@ const routes: Routes = [
     path: 'register',
     loadComponent: () => import('./pages/auth/register/register.page').then(m => m.RegisterPage)
   },
+  {
+    path: 'register-expert',
+    loadComponent: () => import('./pages/auth/register-expert/register-expert.page').then(m => m.RegisterExpertPage)
+  },
   
   {
     path: 'user-dashboard',
@@ -42,6 +46,10 @@ const routes: Routes = [
   {
     path: 'landing-page',
     loadChildren: () => import('./pages/landing-page/landing-page.module').then( m => m.LandingPagePageModule)
+  },
+  {
+    path: 'expert-dashboard',
+    loadChildren: () => import('./pages/expert-dashboard/expert-dashboard.module').then( m => m.ExpertDashboardPageModule)
   }
 ];
 

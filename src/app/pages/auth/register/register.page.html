@@ -56,6 +56,16 @@
             </ion-text>
           </div>
 
+          <div class="form-group">
+            <div class="input-wrapper">
+              <ion-icon name="person-circle-outline" class="input-icon"></ion-icon>
+              <ion-select [(ngModel)]="role" name="role" interface="popover" placeholder="Choisir un rôle" class="custom-input">
+                <ion-select-option value="user">Utilisateur</ion-select-option>
+                <ion-select-option value="expert">Expert</ion-select-option>
+              </ion-select>
+            </div>
+          </div>
+
           <ion-text color="danger" *ngIf="errorMessage" class="error-message">
             <div class="error-box">
               <ion-icon name="alert-circle-outline"></ion-icon>

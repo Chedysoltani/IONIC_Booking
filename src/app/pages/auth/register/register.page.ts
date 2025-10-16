@@ -17,6 +17,7 @@ export class RegisterPage {
   email = '';
   password = '';
   displayName = '';
+  role: 'user' | 'expert' = 'user';
   errorMessage = '';
 
   constructor(
@@ -34,9 +35,8 @@ export class RegisterPage {
     }
 
     try {
-      const cred = await this.authService.register(this.email, this.password, this.displayName);
+      const cred = await this.authService.register(this.email, this.password, this.displayName, this.role);
       console.log('[Register] authService.register success', cred?.user?.uid);
-      // Naviguer directement vers /login sans toast
       console.log('[Register] navigating to /login');
       await this.router.navigate(['/login'], { replaceUrl: true });
     } catch (err: any) {

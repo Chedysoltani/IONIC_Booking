@@ -93,6 +93,10 @@
       </ion-card-header>
       <ion-card-content>
         <p>Gérez vos catégories, experts et utilisateurs depuis ce tableau de bord.</p>
+        <ion-button color="tertiary" (click)="backfillBookingsUsers()" class="mt-2" shape="round">
+          <ion-icon name="sync-outline" slot="start"></ion-icon>
+          Backfill réservations (clients)
+        </ion-button>
       </ion-card-content>
     </ion-card>
   </div>

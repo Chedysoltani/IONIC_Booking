@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, doc, addDoc, updateDoc, deleteDoc, query, orderBy, getCountFromServer, where } from '@angular/fire/firestore';
-import { Observable, map } from 'rxjs';
+import { Firestore, collection, collectionData, doc, addDoc, updateDoc, deleteDoc, query, orderBy, getCountFromServer, where, getDoc, getDocs } from '@angular/fire/firestore';
+import { Observable, map, firstValueFrom } from 'rxjs';
 
 export interface Category {
   id: string;
@@ -14,6 +14,7 @@ export interface Expert {
   email: string;
   bio: string;
   categoryId: string;
+  uid?: string;
 }
 
 export interface UserDoc {
@@ -66,6 +67,18 @@ export class AdminDataService {
       .pipe(map(list => [...list].sort((a, b) => (a.name || '').localeCompare(b.name || ''))));
   }
 
+  getExpertByUid$(uid: string): Observable<Expert[]> {
+    const ref = collection(this.firestore, 'experts');
+    const q = query(ref, where('uid', '==', uid));
+    return collectionData(q, { idField: 'id' }) as Observable<Expert[]>;
+  }
+
+  getExpertByEmail$(email: string): Observable<Expert[]> {
+    const ref = collection(this.firestore, 'experts');
+    const q = query(ref, where('email', '==', email));
+    return collectionData(q, { idField: 'id' }) as Observable<Expert[]>;
+  }
+
   addExpert(expert: Omit<Expert, 'id'>) {
     const ref = collection(this.firestore, 'experts');
     return addDoc(ref, expert);
@@ -92,6 +105,27 @@ export class AdminDataService {
     return addDoc(ref, user);
   }
 
+  getUserByUid$(uid: string): Observable<UserDoc[]> {
+    const ref = collection(this.firestore, 'users');
+    const q = query(ref, where('uid', '==', uid));
+    return collectionData(q, { idField: 'id' }) as Observable<UserDoc[]>;
+  }
+
+  async getUserByIdDoc(uid: string): Promise<UserDoc | undefined> {
+    const d = doc(this.firestore, `users/${uid}`);
+    const snap = await getDoc(d);
+    if (!snap.exists()) return undefined;
+    return { id: uid, ...(snap.data() as any) } as UserDoc;
+  }
+
+  // Promise-based single fetch by uid for utility/backfill usage
+  async getUserByUidOnce(uid: string): Promise<UserDoc | undefined> {
+    const ref = collection(this.firestore, 'users');
+    const qy = query(ref, where('uid', '==', uid));
+    const list = await firstValueFrom(collectionData(qy, { idField: 'id' }) as Observable<UserDoc[]>);
+    return list?.[0];
+  }
+
   updateUserRole(id: string, role: string) {
     const d = doc(this.firestore, `users/${id}`);
     return updateDoc(d, { role });
@@ -113,4 +147,13 @@ export class AdminDataService {
     const snap = await getCountFromServer(ref);
     return snap.data().count;
   }
+  async getUserByAnyId(userId: string): Promise<UserDoc | undefined> {
+  // 1. Essayer par doc.id
+  const docUser = await this.getUserByIdDoc(userId);
+  if (docUser) return docUser;
+
+  // 2. Sinon chercher par champ uid
+  return this.getUserByUidOnce(userId);
+}
+
 }
