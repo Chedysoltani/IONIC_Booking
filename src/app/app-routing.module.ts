@@ -50,6 +50,14 @@ const routes: Routes = [
   {
     path: 'expert-dashboard',
     loadChildren: () => import('./pages/expert-dashboard/expert-dashboard.module').then( m => m.ExpertDashboardPageModule)
+  },
+  {
+    path: 'choix-register',
+    loadChildren: () => import('./pages/choix-register/choix-register.module').then( m => m.ChoixRegisterPageModule)
+  },
+  {
+    path: 'login-admin',
+    loadChildren: () => import('./pages/auth/login-admin/login-admin.module').then( m => m.LoginAdminPageModule)
   }
 ];
 

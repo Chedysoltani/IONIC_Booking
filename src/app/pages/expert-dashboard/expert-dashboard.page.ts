@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IonicModule } from "@ionic/angular";
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription, of, switchMap, map, distinctUntilChanged, take } from 'rxjs';
 import { AuthService } from '../../services/auth';
 import { AdminDataService, Expert, UserDoc } from '../../services/admin-data.service';
@@ -10,7 +12,8 @@ import { Booking, BookingDoc } from '../../services/booking';
   selector: 'app-expert-dashboard',
   templateUrl: './expert-dashboard.page.html',
   styleUrls: ['./expert-dashboard.page.scss'],
-  imports: [IonicModule, CommonModule],
+  standalone: true,
+  imports: [IonicModule, CommonModule, RouterModule],
 })
 export class ExpertDashboardPage implements OnInit, OnDestroy {
   expert: Expert | null = null;
@@ -23,7 +26,8 @@ export class ExpertDashboardPage implements OnInit, OnDestroy {
   constructor(
     private auth: AuthService,
     private admin: AdminDataService,
-    private booking: Booking
+    private booking: Booking,
+    private router: Router,
   ) {}
 
 ngOnInit() {
@@ -224,5 +228,9 @@ ngOnInit() {
     if (status === 'confirmed') return 'Confirmée';
     if (status === 'declined') return 'Refusée';
     return 'En attente';
+  }
+
+  async goHome() {
+    await this.router.navigateByUrl('/landing-page');
   }
 }

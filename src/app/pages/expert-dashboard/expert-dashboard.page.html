@@ -1,5 +1,11 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goHome()">
+        <ion-icon slot="start" name="home-outline"></ion-icon>
+        Accueil
+      </ion-button>
+    </ion-buttons>
     <ion-title>Tableau de bord Expert</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="refresh()">

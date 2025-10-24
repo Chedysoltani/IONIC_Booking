@@ -1,67 +1,160 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/choix-register"></ion-back-button>
+    </ion-buttons>
     <ion-title>Inscription Expert</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="register-expert-content">
-  <div class="container">
-    <ion-card>
+  <div class="register-container">
+    <!-- Header Section -->
+    <div class="header-section animate-fade-in">
+      <div class="header-icon">
+        <ion-icon name="briefcase-outline"></ion-icon>
+      </div>
+      <h1>Créez votre profil expert</h1>
+      <p>Remplissez les informations pour commencer à proposer vos services</p>
+    </div>
+
+    <!-- Form Card -->
+    <ion-card class="form-card animate-slide-up">
       <ion-card-content>
         <form (ngSubmit)="registerExpert()">
+          <!-- Name Field -->
           <div class="form-group">
+            <label class="form-label">
+              <ion-icon name="person-outline"></ion-icon>
+              <span>Nom et prénom</span>
+            </label>
             <div class="input-wrapper">
-              <ion-icon name="person-outline" class="input-icon"></ion-icon>
-              <ion-input [(ngModel)]="name" name="name" placeholder="Nom et prénom"></ion-input>
+              <ion-input 
+                [(ngModel)]="name" 
+                name="name" 
+                placeholder="Entrez votre nom complet"
+                class="form-input">
+              </ion-input>
             </div>
           </div>
 
+          <!-- Email Field -->
           <div class="form-group">
+            <label class="form-label">
+              <ion-icon name="mail-outline"></ion-icon>
+              <span>Email</span>
+            </label>
             <div class="input-wrapper">
-              <ion-icon name="mail-outline" class="input-icon"></ion-icon>
-              <ion-input type="email" [(ngModel)]="email" name="email" placeholder="Email"></ion-input>
+              <ion-input 
+                type="email" 
+                [(ngModel)]="email" 
+                name="email" 
+                placeholder="votre.email@exemple.com"
+                class="form-input">
+              </ion-input>
             </div>
           </div>
 
+          <!-- Password Field -->
           <div class="form-group">
+            <label class="form-label">
+              <ion-icon name="lock-closed-outline"></ion-icon>
+              <span>Mot de passe</span>
+            </label>
             <div class="input-wrapper">
-              <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
-              <ion-input type="password" [(ngModel)]="password" name="password" placeholder="Mot de passe"></ion-input>
+              <ion-input 
+                type="password" 
+                [(ngModel)]="password" 
+                name="password" 
+                placeholder="Minimum 6 caractères"
+                class="form-input">
+              </ion-input>
             </div>
             <ion-text class="password-hint">
-              <small>Minimum 6 caractères</small>
+              <small>Minimum 6 caractères pour votre sécurité</small>
             </ion-text>
           </div>
 
+          <!-- Category Field -->
           <div class="form-group">
+            <label class="form-label">
+              <ion-icon name="pricetag-outline"></ion-icon>
+              <span>Domaine d'expertise</span>
+            </label>
             <div class="input-wrapper">
-              <ion-icon name="book-outline" class="input-icon"></ion-icon>
-              <ion-textarea [(ngModel)]="bio" name="bio" placeholder="Bio (optionnel)"></ion-textarea>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="input-wrapper">
-              <ion-icon name="pricetag-outline" class="input-icon"></ion-icon>
-              <ion-select [(ngModel)]="categoryId" name="categoryId" interface="popover" placeholder="Choisir une catégorie">
-                <ion-select-option *ngFor="let c of categories" [value]="c.id">{{ c.name }}</ion-select-option>
+              <ion-select 
+                [(ngModel)]="categoryId" 
+                name="categoryId" 
+                interface="popover" 
+                placeholder="Sélectionnez votre domaine"
+                class="form-input">
+                <ion-select-option *ngFor="let c of categories" [value]="c.id">
+                  {{ c.name }}
+                </ion-select-option>
               </ion-select>
             </div>
           </div>
 
+          <!-- Bio Field -->
+          <div class="form-group">
+            <label class="form-label">
+              <ion-icon name="document-text-outline"></ion-icon>
+              <span>Bio (optionnel)</span>
+            </label>
+            <div class="input-wrapper">
+              <ion-textarea 
+                [(ngModel)]="bio" 
+                name="bio" 
+                placeholder="Décrivez votre expérience et vos compétences..."
+                class="form-input textarea">
+              </ion-textarea>
+            </div>
+            <ion-text class="bio-hint">
+              <small>Aidez les clients à mieux vous connaître</small>
+            </ion-text>
+          </div>
+
+          <!-- Error Message -->
           <ion-text color="danger" *ngIf="errorMessage">
-            <div class="error-box">
+            <div class="error-box animate-fade-in">
               <ion-icon name="alert-circle-outline"></ion-icon>
               <span>{{ errorMessage }}</span>
             </div>
           </ion-text>
 
-          <ion-button type="submit" expand="block" [disabled]="loading">
+          <!-- Submit Button -->
+          <ion-button 
+            type="submit" 
+            expand="block" 
+            [disabled]="loading"
+            class="submit-button">
             <ion-spinner *ngIf="loading" name="crescent" slot="start"></ion-spinner>
-            Créer mon compte expert
+            <span *ngIf="!loading">Créer mon compte expert</span>
+            <span *ngIf="loading">Inscription en cours...</span>
           </ion-button>
         </form>
       </ion-card-content>
     </ion-card>
+
+    <!-- Already have account -->
+    <div class="footer-section animate-fade-in delay-1">
+      <p>Vous avez déjà un compte ?</p>
+      <ion-button 
+        routerLink="/login" 
+        fill="outline" 
+        class="login-button"
+        shape="round">
+        <ion-icon slot="start" name="log-in-outline"></ion-icon>
+        Se connecter
+      </ion-button>
+    </div>
+
+    <!-- Back to choice -->
+    <div class="back-link animate-fade-in delay-2">
+      <a routerLink="/choix-register">
+        <ion-icon name="arrow-back"></ion-icon>
+        Retour au choix de profil
+      </a>
+    </div>
   </div>
 </ion-content>

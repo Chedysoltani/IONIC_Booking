@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/landing-page"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Type de compte</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="choix-content">
+  <div class="choix-container">
+    <!-- Header Section -->
+    <div class="header-section animate-fade-in">
+      <div class="header-icon">
+        <ion-icon name="people-outline"></ion-icon>
+      </div>
+      <h1>Choisissez votre profil</h1>
+      <p>Sélectionnez le type de compte qui correspond à votre besoin</p>
+    </div>
+
+    <!-- Account Types -->
+    <div class="account-types">
+      <!-- Expert Card -->
+      <ion-card 
+        class="account-card expert-card animate-slide-up"
+        button="true"
+        routerLink="/register-expert" 
+        routerDirection="forward">
+        <div class="card-badge">
+          <ion-icon name="star"></ion-icon>
+          <span>Professionnel</span>
+        </div>
+        <div class="card-icon expert-icon">
+          <ion-icon name="briefcase-outline"></ion-icon>
+        </div>
+        <ion-card-header>
+          <ion-card-title>Je suis Expert</ion-card-title>
+          <ion-card-subtitle>Proposez vos services de consultation</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ul class="features-list">
+            <li>
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <span>Gérez vos disponibilités</span>
+            </li>
+            <li>
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <span>Acceptez les réservations</span>
+            </li>
+            <li>
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <span>Développez votre clientèle</span>
+            </li>
+          </ul>
+          <div class="card-action">
+            <span>Créer mon profil expert</span>
+            <ion-icon name="arrow-forward"></ion-icon>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- User Card -->
+      <ion-card 
+        class="account-card user-card animate-slide-up delay-1"
+        button="true"
+        routerLink="/register" 
+        routerDirection="forward">
+        <div class="card-badge user-badge">
+          <ion-icon name="person"></ion-icon>
+          <span>Client</span>
+        </div>
+        <div class="card-icon user-icon">
+          <ion-icon name="person-outline"></ion-icon>
+        </div>
+        <ion-card-header>
+          <ion-card-title>Je suis Utilisateur</ion-card-title>
+          <ion-card-subtitle>Réservez des consultations avec des experts</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ul class="features-list">
+            <li>
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <span>Trouvez des experts qualifiés</span>
+            </li>
+            <li>
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <span>Réservez facilement en ligne</span>
+            </li>
+            <li>
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <span>Suivez vos consultations</span>
+            </li>
+          </ul>
+          <div class="card-action">
+            <span>Créer mon compte</span>
+            <ion-icon name="arrow-forward"></ion-icon>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- Already have account -->
+    <div class="footer-section animate-fade-in delay-2">
+      <p>Vous avez déjà un compte ?</p>
+      <ion-button 
+        routerLink="/login" 
+        fill="outline" 
+        class="login-button"
+        shape="round">
+        <ion-icon slot="start" name="log-in-outline"></ion-icon>
+        Se connecter
+      </ion-button>
+    </div>
+
+    <!-- Back to home -->
+    <div class="back-link animate-fade-in delay-3">
+      <a routerLink="/landing-page">
+        <ion-icon name="arrow-back"></ion-icon>
+        Retour à l'accueil
+      </a>
+    </div>
+  </div>
+</ion-content>

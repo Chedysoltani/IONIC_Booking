@@ -1,4 +1,4 @@
-.register-expert-content {
+.choix-content {
   --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
@@ -39,9 +39,13 @@
   animation-delay: 0.4s;
 }
 
+.delay-3 {
+  animation-delay: 0.6s;
+}
+
 // Container
-.register-container {
-  max-width: 600px;
+.choix-container {
+  max-width: 900px;
   margin: 0 auto;
   padding: 40px 20px;
   min-height: 100%;
@@ -87,14 +91,28 @@
   }
 }
 
-// Form Card
-.form-card {
-  margin: 0 0 40px 0;
+// Account Types
+.account-types {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.account-card {
+  margin: 0;
   border-radius: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   background: white;
-  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+  }
 
   &::before {
     content: '';
@@ -106,139 +124,142 @@
     background: linear-gradient(135deg, #667eea, #764ba2);
   }
 
-  ion-card-content {
-    padding: 32px 24px;
+  &.expert-card::before {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+  }
+
+  &.user-card::before {
+    background: linear-gradient(135deg, #10b981, #059669);
   }
 }
 
-// Form Groups
-.form-group {
-  margin-bottom: 24px;
-
-  &:last-of-type {
-    margin-bottom: 32px;
-  }
-}
-
-.form-label {
+.card-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
+  gap: 6px;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-radius: 20px;
+  font-size: 12px;
   font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 
   ion-icon {
-    font-size: 18px;
+    font-size: 14px;
+  }
+
+  &.user-badge {
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+  }
+}
+
+.card-icon {
+  width: 80px;
+  height: 80px;
+  margin: 24px auto 0;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+
+  ion-icon {
+    font-size: 40px;
+    color: white;
+  }
+
+  &.expert-icon {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+  }
+
+  &.user-icon {
+    background: linear-gradient(135deg, #10b981, #059669);
+  }
+
+  .account-card:hover & {
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+
+ion-card-header {
+  text-align: center;
+  padding: 20px 20px 12px;
+
+  ion-card-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 8px;
+  }
+
+  ion-card-subtitle {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.5;
+  }
+}
+
+ion-card-content {
+  padding: 12px 20px 24px;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    font-size: 14px;
+    color: #4b5563;
+
+    ion-icon {
+      font-size: 20px;
+      color: #10b981;
+      flex-shrink: 0;
+    }
+  }
+
+  .expert-card & li ion-icon {
     color: #667eea;
   }
 }
 
-// Input Wrapper
-.input-wrapper {
-  position: relative;
+.card-action {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 16px;
   background: #f9fafb;
-  border: 2px solid #e5e7eb;
   border-radius: 12px;
+  font-weight: 600;
+  color: #667eea;
   transition: all 0.3s ease;
-
-  &:focus-within {
-    border-color: #667eea;
-    background: #f3f4f6;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  }
-
-  ion-input,
-  ion-select,
-  ion-textarea {
-    --padding-start: 16px;
-    --padding-end: 16px;
-    --padding-top: 12px;
-    --padding-bottom: 12px;
-    --background: transparent;
-    --color: #1f2937;
-    font-size: 15px;
-
-    &::placeholder {
-      color: #9ca3af;
-    }
-  }
-
-  ion-textarea {
-    --padding-start: 16px;
-    --padding-end: 16px;
-    --padding-top: 12px;
-    --padding-bottom: 12px;
-    min-height: 100px;
-  }
-}
-
-.form-input {
-  width: 100%;
-}
-
-.textarea {
-  min-height: 120px;
-}
-
-// Hints
-.password-hint,
-.bio-hint {
-  display: block;
-  margin-top: 6px;
-  font-size: 12px;
-  color: #6b7280;
-  opacity: 0.8;
-}
-
-// Error Box
-.error-box {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  background: #fee2e2;
-  border: 1px solid #fecaca;
-  border-radius: 12px;
-  color: #dc2626;
-  font-size: 14px;
-  margin-bottom: 24px;
 
   ion-icon {
     font-size: 20px;
-    flex-shrink: 0;
+    transition: transform 0.3s ease;
   }
 
-  span {
-    flex: 1;
-  }
-}
+  .account-card:hover & {
+    background: #f3f4f6;
 
-// Submit Button
-.submit-button {
-  --background: linear-gradient(135deg, #667eea, #764ba2);
-  --background-hover: linear-gradient(135deg, #5568d3, #6a3f8f);
-  --color: white;
-  --border-radius: 12px;
-  height: 48px;
-  font-weight: 600;
-  font-size: 16px;
-  margin-top: 8px;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-  transition: all 0.3s ease;
-
-  &:hover:not([disabled]) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    ion-icon {
+      transform: translateX(4px);
+    }
   }
 
-  &[disabled] {
-    opacity: 0.7;
+  .user-card & {
+    color: #10b981;
   }
 }
 
@@ -300,7 +321,7 @@
 
 // Responsive
 @media (max-width: 768px) {
-  .register-container {
+  .choix-container {
     padding: 30px 16px;
   }
 
@@ -325,40 +346,30 @@
     }
   }
 
-  .form-card {
-    ion-card-content {
-      padding: 24px 16px;
+  .account-types {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card-icon {
+    width: 64px;
+    height: 64px;
+
+    ion-icon {
+      font-size: 32px;
     }
   }
 
-  .form-group {
-    margin-bottom: 20px;
-  }
-
-  .form-label {
-    font-size: 13px;
-  }
-
-  .input-wrapper {
-    ion-input,
-    ion-select,
-    ion-textarea {
-      --padding-start: 12px;
-      --padding-end: 12px;
-      --padding-top: 10px;
-      --padding-bottom: 10px;
-      font-size: 14px;
-    }
-  }
-
-  .submit-button {
-    height: 44px;
-    font-size: 15px;
+  ion-card-header ion-card-title {
+    font-size: 20px;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  .register-container {
+  .account-types {
+    grid-template-columns: 1fr;
     max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

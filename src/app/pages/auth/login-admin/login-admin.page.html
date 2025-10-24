@@ -1,0 +1,79 @@
+<ion-header [translucent]="true" class="header-gradient">
+  <ion-toolbar class="toolbar-transparent">
+    <ion-title class="header-title">Connexion Administrateur</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="login-content">
+  <div class="background-gradient"></div>
+  
+  <div class="content-wrapper">
+    <!-- Header Section -->
+    <div class="header-section fade-in">
+      <div class="icon-container">
+        <ion-icon name="lock-closed-outline" class="header-icon"></ion-icon>
+      </div>
+      <h1 class="main-title">Connexion Administrateur</h1>
+      <p class="subtitle">Accédez à votre tableau de bord</p>
+    </div>
+
+    <!-- Login Card -->
+    <div class="login-card slide-up">
+      <div class="card-header">
+        <h2 class="card-title">Se connecter</h2>
+        <p class="card-subtitle">Entrez vos identifiants</p>
+      </div>
+
+      <form (ngSubmit)="onSubmit()" class="login-form">
+        <!-- Username Field -->
+        <div class="form-group">
+          <div class="input-wrapper">
+            <ion-icon name="person-outline" class="input-icon"></ion-icon>
+            <ion-input
+              type="text"
+              [(ngModel)]="username"
+              name="username"
+              required
+              placeholder="Nom d'utilisateur"
+              class="form-input">
+            </ion-input>
+          </div>
+          <div class="input-border"></div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <div class="input-wrapper">
+            <ion-icon name="key-outline" class="input-icon"></ion-icon>
+            <ion-input
+              type="password"
+              [(ngModel)]="password"
+              name="password"
+              required
+              placeholder="Mot de passe"
+              class="form-input">
+            </ion-input>
+          </div>
+          <div class="input-border"></div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-container" *ngIf="errorMessage">
+          <div class="error-message">
+            <ion-icon name="alert-circle-outline" class="error-icon"></ion-icon>
+            <span>{{ errorMessage }}</span>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <ion-button 
+          expand="block" 
+          type="submit" 
+          class="submit-button">
+          <ion-icon name="log-in-outline" slot="start"></ion-icon>
+          Se connecter
+        </ion-button>
+      </form>
+    </div>
+  </div>
+</ion-content>
